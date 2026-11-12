@@ -1,0 +1,88 @@
+features:
+- setting1
+- setting2
+- s2
+- s3
+- s4
+- s6
+- s7
+- s8
+- s9
+- s11
+- s12
+- s13
+- s14
+- s15
+- s17
+- s20
+- s21
+optional_features:
+- cycle
+dropped_constant:
+- setting3
+- s1
+- s5
+- s10
+- s16
+- s18
+- s19
+excluded_always:
+- unit
+- rul
+- rul_raw
+ranges_train:
+  setting1:
+  - -0.0087
+  - 0.0087
+  setting2:
+  - -0.0006
+  - 0.0006
+  s2:
+  - 641.21
+  - 644.53
+  s3:
+  - 1571.04
+  - 1616.91
+  s4:
+  - 1382.25
+  - 1441.49
+  s6:
+  - 21.6
+  - 21.61
+  s7:
+  - 549.85
+  - 556.06
+  s8:
+  - 2387.9
+  - 2388.56
+  s9:
+  - 9021.73
+  - 9244.59
+  s11:
+  - 46.85
+  - 48.53
+  s12:
+  - 518.69
+  - 523.38
+  s13:
+  - 2387.88
+  - 2388.56
+  s14:
+  - 8099.94
+  - 8293.72
+  s15:
+  - 8.3249
+  - 8.5848
+  s17:
+  - 388.0
+  - 400.0
+  s20:
+  - 38.14
+  - 39.43
+  s21:
+  - 22.8942
+  - 23.6184
+dtype: float64
+null_policy: reject
+out_of_range_policy: flag
+units: 'unverified: paper Table 2 gives units but not column order'
