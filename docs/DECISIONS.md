@@ -31,3 +31,11 @@ To be locked by a unit test in Stage 4.
 One prediction per test engine, at its last observed cycle, scored against
 RUL_FD001.txt. Evidence: last cycle + RUL has the same distribution as
 train lifetimes (mean 206.5 vs 206.3). Paper implies it; not stated outright.
+
+## D7. Capped RUL label (cap = 125) and scoring convention
+Train on rul = min(last_cycle - cycle, 125). Primary scoring: predictions vs
+min(true RUL, 125) (option B, matches brief rule c). Secondary, always
+reported: predictions vs raw true RUL (option A). 11 of 100 FD001 test
+engines have true RUL > 125. Cap fixed before any baseline, never tuned on
+test. Rejected: linear label (early-life targets are not learnable from
+sensors that still look healthy). Cost: model can never output > 125.
