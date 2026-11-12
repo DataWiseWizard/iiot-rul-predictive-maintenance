@@ -12,3 +12,8 @@ sensor1-21 (readme text says "sensor 26", a typo; 6..26 is 21 sensors).
 Rows: 20631 train, 13096 test, 100 RUL values.
 NOT stated in readme: contents of RUL_FD001.txt and the scoring convention.
 Status: to be verified in Stage 1 (PDF and an empirical check).
+
+## Checked against the PHM08 paper (Saxena et al., 2008)
+Confirmed: 21 sensors (readme "sensor 26" is a typo), HPC-only degradation,
+test sets pruned before failure, one score term per engine.
+Not explicit in paper: last-row convention (implied); sensor-to-column order.
