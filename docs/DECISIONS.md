@@ -39,3 +39,9 @@ reported: predictions vs raw true RUL (option A). 11 of 100 FD001 test
 engines have true RUL > 125. Cap fixed before any baseline, never tuned on
 test. Rejected: linear label (early-life targets are not learnable from
 sensors that still look healthy). Cost: model can never output > 125.
+
+## D8. Feature contract
+Built from train only (scripts/build_contract.py -> configs/feature_contract.yaml).
+Constant columns (nunique==1) dropped; near-constant kept until ablated.
+cycle is optional, decided by ablation in Stage 3. Null: reject. Out of range:
+flag. Units unverified. Rejected: imputing nulls in v1 (stuck-sensor risk).
