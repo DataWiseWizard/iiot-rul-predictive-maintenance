@@ -45,3 +45,16 @@ Built from train only (scripts/build_contract.py -> configs/feature_contract.yam
 Constant columns (nunique==1) dropped; near-constant kept until ablated.
 cycle is optional, decided by ablation in Stage 3. Null: reject. Out of range:
 flag. Units unverified. Rejected: imputing nulls in v1 (stuck-sensor risk).
+
+## D9. Age baseline replaces literal persistence
+Persistence (repeat the last RUL) cannot be built at serving time: no earlier
+RUL values exist. Replacement: pred = clip(mean_train_lifetime - cycle, 0, 125),
+mean lifetime from the training fold only. Changed before any model was run.
+
+## D10. Validation design
+5-fold group CV by engine on training data (GroupKFold). Scoring rows: one
+random cut per validation engine, raw RUL uniform in [10, min(150, life-1)],
+range from the PHM08 paper, averaged over fixed seeds. Primary truth is the
+capped RUL (D7), raw RUL secondary. Rejected: last row per engine (always
+RUL 0, unrepresentative), all rows (plateau rows dominate). Cost: score
+depends on a sampling choice and is noisy per seed.
