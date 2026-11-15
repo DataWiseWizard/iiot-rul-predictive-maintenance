@@ -7,7 +7,7 @@ Error sign: d = predicted RUL - true RUL. d > 0 is late, d < 0 is early.
 Primary metric: NASA score. Secondary: MAE, RMSE, late fraction, mean late error.
 All comparisons use a paired bootstrap over engines, 95% CI.
 
-C1. LightGBM beats constant-mean, persistence and Ridge on the primary
+C1. LightGBM beats constant-mean, age baseline (replaces persistence, see D9) and Ridge on the primary
     metric. The CI of the difference excludes 0 in LightGBM's favour, and the
     improvement over the best baseline is >= __% (set after Stage 2 baselines,
     before any LightGBM run; the commit history is the evidence).
