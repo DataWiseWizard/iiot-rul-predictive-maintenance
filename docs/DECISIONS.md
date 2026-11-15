@@ -52,9 +52,4 @@ RUL values exist. Replacement: pred = clip(mean_train_lifetime - cycle, 0, 125),
 mean lifetime from the training fold only. Changed before any model was run.
 
 ## D10. Validation design
-5-fold group CV by engine on training data (GroupKFold). Scoring rows: one
-random cut per validation engine, raw RUL uniform in [10, min(150, life-1)],
-range from the PHM08 paper, averaged over fixed seeds. Primary truth is the
-capped RUL (D7), raw RUL secondary. Rejected: last row per engine (always
-RUL 0, unrepresentative), all rows (plateau rows dominate). Cost: score
-depends on a sampling choice and is noisy per seed.
+I chose random cut points over scoring only the last row because the last row is always RUL 0 and cuts cover the range the test covers, at the cost of a noisier score that depends on a sampling choice, which I reduce with repeated seeds.

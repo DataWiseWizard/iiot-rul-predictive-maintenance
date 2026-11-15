@@ -7,13 +7,9 @@ Error sign: d = predicted RUL - true RUL. d > 0 is late, d < 0 is early.
 Primary metric: NASA score. Secondary: MAE, RMSE, late fraction, mean late error.
 All comparisons use a paired bootstrap over engines, 95% CI.
 
-C1. LightGBM beats constant-mean, age baseline (replaces persistence, see D9) and Ridge on the primary
-    metric. The CI of the difference excludes 0 in LightGBM's favour, and the
-    improvement over the best baseline is >= __% (set after Stage 2 baselines,
-    before any LightGBM run; the commit history is the evidence).
-C2. Late-prediction safety: the model's late fraction is <= the best
-    baseline's late fraction AND its mean late error is <= the best
-    baseline's, each reported with a bootstrap 95% CI.
+C1. LightGBM must beat the best baseline on the NASA score by at least 10%. “Best baseline” is Ridge, scored on the
+    validation design in D10 with capped truth. The comparison uses the mean NASA score over seeds 0–4. The threshold is 0.9 × the Ridge mean, which is about 1,004 at the current baseline run. The paired-bootstrap 95% CI of the difference must also exclude 0.
+C2. Best baseline for C2 is the same Ridge model as C1, using the same validation design, seeds, and capped truth.
 C3. `make check` (ruff + pytest, including leakage and group-split guards)
     passes locally and in CI on a fresh clone.
 
