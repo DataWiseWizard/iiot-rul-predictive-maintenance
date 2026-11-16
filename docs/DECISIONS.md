@@ -59,3 +59,6 @@ Window 10, trailing per-engine means of all contract candidates, computed on ful
 
 ## D12. LightGBM comparison (validation design D10, capped truth)
 Parameters fixed in training/gbm.py (LGBM_PARAMS): 300 trees, learning rate 0.05, 31 leaves, min child samples 20, subsample 0.8, colsample 0.8, seed 0. Variants: lgbm_raw (contract features) and lgbm_rolling (contract features plus trailing window-10 means, as in D11). Only these two variants are run. Point threshold for C1: 0.9 × Ridge raw mean NASA (1116.27) = 1004.64. C1 also requires a paired-bootstrap 95% CI of the difference, which needs per-engine predictions and will be added before the verdict is recorded. Any tuning later is limited to validation, and every tried setting is logged here.
+
+## D12 result. (validation, capped truth, seeds 0–4)
+C1 not met. Point estimates: ridge_raw NASA 1116.27, lgbm_raw 1882.57, lgbm_rolling 2030.63; threshold 1004.64. C2 point estimates met for both LightGBM variants (late fraction 0.51 and 0.47 vs 0.56; mean late error 17.45 and 18.39 vs 19.56); bootstrap CI not yet computed, so C2 is open. Lower MAE and RMSE for lgbm_raw, but higher NASA; primary metric is NASA (D2), so Ridge stays the bar.
