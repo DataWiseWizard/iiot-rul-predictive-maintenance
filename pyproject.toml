@@ -32,5 +32,8 @@ src = ["src", "tests"]
 [tool.ruff.lint]
 select = ["E", "F", "I", "B"]
 
+[tool.ruff.lint.isort]
+known-first-party = ["rul_pm"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
