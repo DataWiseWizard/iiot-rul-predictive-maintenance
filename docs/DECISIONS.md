@@ -62,3 +62,6 @@ Parameters fixed in training/gbm.py (LGBM_PARAMS): 300 trees, learning rate 0.05
 
 ## D12 result. (validation, capped truth, seeds 0–4)
 C1 not met. Point estimates: ridge_raw NASA 1116.27, lgbm_raw 1882.57, lgbm_rolling 2030.63; threshold 1004.64. C2 point estimates met for both LightGBM variants (late fraction 0.51 and 0.47 vs 0.56; mean late error 17.45 and 18.39 vs 19.56); bootstrap CI not yet computed, so C2 is open. Lower MAE and RMSE for lgbm_raw, but higher NASA; primary metric is NASA (D2), so Ridge stays the bar.
+
+## D12 result with paired engine bootstrap (2000 draws, seed 0, 95% CI)
+Candidate minus ridge_raw. NASA: lgbm_raw +766.3 [+20.5, +1779.6]; lgbm_rolling +914.4 [+53.2, +2321.3]. C1 not met: point estimate above threshold and CI positive. Late fraction: lgbm_raw −0.052 [−0.086, −0.016]; lgbm_rolling −0.096 [−0.144, −0.048]. Mean late error: lgbm_raw −2.114 [−3.874, −0.419]; lgbm_rolling −1.175 [−3.174, +0.859]. C2 status pending the written rule and the per-variant question. Bootstrap covers engine sampling only; seed std for lgbm_raw NASA is 977.
