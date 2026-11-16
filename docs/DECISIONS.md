@@ -53,3 +53,6 @@ mean lifetime from the training fold only. Changed before any model was run.
 
 ## D10. Validation design
 I chose random cut points over scoring only the last row because the last row is always RUL 0 and cuts cover the range the test covers, at the cost of a noisier score that depends on a sampling choice, which I reduce with repeated seeds.
+
+## D11. Rolling-mean ablation (Ridge, validation design D10)
+Window 10, trailing per-engine means of all contract candidates, computed on full engines before splitting. NASA score (mean over seeds 0–4): raw 1116.27 (std 228.47), rolling 1212.04 (std 342.63). Per-seed differences (rolling − raw): −26.42, +277.92, −39.94, +207.98, +59.33. Late fraction unchanged (0.56); mean late error 19.56 vs 19.41. Decision: Ridge baseline stays on raw features. Rolling features remain a candidate for LightGBM, evaluated under C1 and C2 with the same validation design. Only window 10 was run; any other window must be logged here before it is compared.
