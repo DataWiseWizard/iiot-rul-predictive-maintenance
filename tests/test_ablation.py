@@ -1,9 +1,9 @@
 import numpy as np
 import pandas as pd
-from rul_pm.training.ablation import make_ridge
+
 from rul_pm.data.contract import CANDIDATES
 from rul_pm.features.features import add_rolling_means
-
+from rul_pm.training.ablation import make_ridge
 
 WINDOW = 3
 BASE = ["unit", "cycle", *CANDIDATES, "rul", "rul_raw"]
