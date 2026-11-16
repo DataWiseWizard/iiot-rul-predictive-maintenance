@@ -65,3 +65,6 @@ C1 not met. Point estimates: ridge_raw NASA 1116.27, lgbm_raw 1882.57, lgbm_roll
 
 ## D12 result with paired engine bootstrap (2000 draws, seed 0, 95% CI)
 Candidate minus ridge_raw. NASA: lgbm_raw +766.3 [+20.5, +1779.6]; lgbm_rolling +914.4 [+53.2, +2321.3]. C1 not met: point estimate above threshold and CI positive. Late fraction: lgbm_raw −0.052 [−0.086, −0.016]; lgbm_rolling −0.096 [−0.144, −0.048]. Mean late error: lgbm_raw −2.114 [−3.874, −0.419]; lgbm_rolling −1.175 [−3.174, +0.859]. C2 status pending the written rule and the per-variant question. Bootstrap covers engine sampling only; seed std for lgbm_raw NASA is 977.
+
+## C2 verdict (validation, capped truth, paired engine bootstrap, 95% CI) 
+The C2 rule was written after the D12 LightGBM run and is not a pre-registration. Reference values from docs/BASELINES.md (recorded before LightGBM): Ridge late fraction 0.56, mean late error 19.6. Verdict per variant: lgbm_raw met (late fraction 0.51, CI of difference [−0.086, −0.016]; mean late error 17.45, CI [−3.874, −0.419]). lgbm_rolling met on point estimates (late fraction 0.47, CI [−0.144, −0.048]; mean late error 18.39, CI [−3.174, +0.859], not distinguishable from no change). C1 remains not met, so the overall LightGBM result is a fail on the primary criterion.
