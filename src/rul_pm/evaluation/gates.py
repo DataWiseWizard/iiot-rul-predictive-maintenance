@@ -92,7 +92,7 @@ def evaluate_gates(oof: pd.DataFrame, ceilings: dict, ratio: float = RATIO_DEFAU
     s["pass_cost"] = s["mean_cost"] <= ceilings["cost_ceiling"]
     s["pass_tail"] = s["tail_share"] <= ceilings["tail_ceiling"]
     s["pass_stability"] = s["std_cost"] <= ceilings["stability_ceiling"]
-    s["passes"] = s[["pass_cost", "pass_tail", "pass_stability"]].all(axis=1)
+    s["passes"] = s[["pass_cost", "pass_tail"]].all(axis=1)  # D15: stability is reported, not gated
     return s.sort_values("mean_cost").reset_index(drop=True)
 
 

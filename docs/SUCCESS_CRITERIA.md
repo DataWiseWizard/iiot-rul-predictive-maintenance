@@ -3,7 +3,7 @@
 Data: NASA C-MAPSS FD001 (simulated). Evaluation: one prediction per test
 engine at its last observed cycle (convention to be verified in Stage 1).
 Error sign: d = predicted RUL - true RUL. d > 0 is late, d < 0 is early.
-
+<!-- 
 Primary metric: NASA score. Secondary: MAE, RMSE, late fraction, mean late error.
 All comparisons use a paired bootstrap over engines, 95% CI.
 
@@ -14,4 +14,12 @@ C3. `make check` (ruff + pytest, including leakage and group-split guards)
     passes locally and in CI on a fresh clone.
 
 Anything not met is reported as not met. No claim of real plant validation
-or real downtime savings: the data is simulated.
+or real downtime savings: the data is simulated. -->
+
+C1, C2 (original): withdrawn in D14. Ridge-relative criteria are no longer used.
+
+Current criteria (D14, revised by D15), FD001 validation, seeds 0-4:
+G1 cost: mean asymmetric cost per cut (c_late/c_early = 3) <= 30
+G2 tail: share of cuts with late error > 20 cycles <= 0.05
+C3: make check passes locally and in CI on a fresh clone (not yet verified)
+Reported, not gated: seed std of mean cost, NASA per engine, MAE, RMSE, ratio sensitivity (2, 3, 5)

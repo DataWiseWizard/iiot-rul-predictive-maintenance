@@ -74,3 +74,11 @@ def test_ratio_sensitivity_uses_default_pass_set():
     out = ratio_sensitivity(df, _ceilings())
     assert set(out["ratio"]) == {2.0, 3.0, 5.0}
     assert (out["best_passer"] == "A").all()
+
+def test_stability_is_reported_not_gated():
+    rows = [{"model": "m", "seed": s, "unit": u, "cycle": 1, "rul": 50.0,
+             "rul_raw": 50.0, "pred": 50.0 - s}
+            for s in range(5) for u in range(1, 5)]
+    table = evaluate_gates(pd.DataFrame(rows), _ceilings(cost=10.0, std=0.1))
+    assert bool(table.loc[0, "pass_stability"]) is False
+    assert bool(table.loc[0, "passes"]) is True
