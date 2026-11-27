@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import pytest
 
 from rul_pm.data.labels import RUL_CAP
 from rul_pm.evaluation.bootstrap import oof_predictions, paired_bootstrap
@@ -38,3 +39,12 @@ def test_identical_models_give_zero_difference():
     r = paired_bootstrap(oof, "age", "age", n_boot=200)
     assert abs(r["point"]) < 1e-12
     assert abs(r["ci_low"]) < 1e-12 and abs(r["ci_high"]) < 1e-12
+
+
+def test_callable_metric_matches_named_metric():
+    oof = oof_predictions(_frame(), {"mean": MODELS["mean"], "age": MODELS["age"]},
+                          seeds=range(2))
+    named = paired_bootstrap(oof, "age", "mean", metric="nasa", n_boot=50)
+    custom = paired_bootstrap(oof, "age", "mean",
+                              metric=lambda y, p: error_summary(y, p)["nasa"], n_boot=50)
+    assert custom["point"] == pytest.approx(named["point"])

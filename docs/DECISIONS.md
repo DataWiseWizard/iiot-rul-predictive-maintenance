@@ -68,3 +68,6 @@ Candidate minus ridge_raw. NASA: lgbm_raw +766.3 [+20.5, +1779.6]; lgbm_rolling 
 
 ## C2 verdict (validation, capped truth, paired engine bootstrap, 95% CI) 
 The C2 rule was written after the D12 LightGBM run and is not a pre-registration. Reference values from docs/BASELINES.md (recorded before LightGBM): Ridge late fraction 0.56, mean late error 19.6. Verdict per variant: lgbm_raw met (late fraction 0.51, CI of difference [−0.086, −0.016]; mean late error 17.45, CI [−3.874, −0.419]). lgbm_rolling met on point estimates (late fraction 0.47, CI [−0.144, −0.048]; mean late error 18.39, CI [−3.174, +0.859], not distinguishable from no change). C1 remains not met, so the overall LightGBM result is a fail on the primary criterion.
+
+## Diagnostic (seed 0, not pre-registered) 
+LightGBM’s NASA total is more concentrated than Ridge’s: the top 10 cuts give 83% vs 56%. The gap is late-biased (late share 0.85 vs 0.77). Units 28 and 84 make up 124 of LightGBM’s extra NASA on seed 0, but seed 0 alone is better for LightGBM (−95.7), so the mean gap comes from other seeds. Cross-seed check pending.

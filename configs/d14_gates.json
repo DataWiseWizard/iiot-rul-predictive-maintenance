@@ -1,0 +1,8 @@
+{
+  "ratio": 3.0,
+  "tail_L": 20.0,
+  "tail_ceiling": 0.05,
+  "cost_ceiling": 30.0,
+  "stability_ceiling": 3.0,
+  "source": "hand-written policy values, not derived from any model run; see D14. Cost metric adopted post-hoc; NASA per engine reported alongside."
+}
