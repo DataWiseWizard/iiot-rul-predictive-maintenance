@@ -26,6 +26,13 @@ def oof_predictions(df, models, n_splits=5, seeds=SEEDS) -> pd.DataFrame:
     return pd.concat(frames, ignore_index=True)
 
 
+def _as_metric_fn(metric):
+    """metric is a key of error_summary, or a callable(y_true, y_pred) -> float."""
+    if callable(metric):
+        return metric, getattr(metric, "__name__", "custom")
+    return (lambda y, p: error_summary(y, p)[metric]), metric
+
+
 def paired_bootstrap(oof, candidate, baseline, metric="nasa",
                      n_boot=2000, rng_seed=0, alpha=0.05) -> dict:
     """CI for the seed-averaged difference metric(candidate) - metric(baseline).
@@ -33,6 +40,7 @@ def paired_bootstrap(oof, candidate, baseline, metric="nasa",
     Engines are resampled with replacement, the same engines for both models.
     Negative difference means the candidate is lower (better).
     """
+    fn, name = _as_metric_fn(metric)
     seeds = sorted(oof["seed"].unique())
     tables = {}
     for s in seeds:
@@ -51,8 +59,7 @@ def paired_bootstrap(oof, candidate, baseline, metric="nasa",
         vals = []
         for s in seeds:
             t = tables[(s, m)]
-            vals.append(error_summary(t["rul"].to_numpy()[idx],
-                                      t["pred"].to_numpy()[idx])[metric])
+            vals.append(fn(t["rul"].to_numpy()[idx], t["pred"].to_numpy()[idx]))
         return np.mean(vals)
 
     def diff(idx):
@@ -63,4 +70,4 @@ def paired_bootstrap(oof, candidate, baseline, metric="nasa",
     rng = np.random.default_rng(rng_seed)
     boots = np.array([diff(rng.integers(0, n, n)) for _ in range(n_boot)])
     lo, hi = np.quantile(boots, [alpha / 2, 1 - alpha / 2])
-    return {"metric": metric, "point": point, "ci_low": lo, "ci_high": hi}
+    return {"metric": name, "point": point, "ci_low": lo, "ci_high": hi}
